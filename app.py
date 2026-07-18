@@ -7,8 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/18o_Qfadxjz2LnsvaEqRjduhSwhaiyvnm
 """
 
-!pip install -q cohere pypdf
-
 import cohere
 
 # 1. Configurar la API Key de Cohere de forma segura mediante los Secrets de Streamlit

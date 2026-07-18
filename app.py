@@ -11,8 +11,13 @@ Original file is located at
 
 import cohere
 
-# Coloca tu API Key de Cohere
-COHERE_API_KEY = "TU_API_KEY_DE_COHERE_AQUI"
+# 1. Configurar la API Key de Cohere de forma segura mediante los Secrets de Streamlit
+try:
+    COHERE_API_KEY = st.secrets["COHERE_API_KEY"]
+except:
+    st.error("❌ Falta configurar la COHERE_API_KEY en los Secrets de Streamlit Cloud.")
+    st.stop()
+    
 co = cohere.Client(COHERE_API_KEY)
 
 # Le pedimos a Cohere la lista de modelos disponibles para Chat
@@ -26,7 +31,7 @@ from pypdf import PdfReader
 import cohere
 
 # 1. Configura tu API Key de Cohere aquí
-COHERE_API_KEY = "TU_API_KEY_DE_COHERE_AQUI"
+
 co = cohere.Client(COHERE_API_KEY)
 
 # 2. Leer el PDF de la cafetería

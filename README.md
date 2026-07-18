@@ -48,6 +48,14 @@ El proyecto fue desarrollado utilizando herramientas modernas del ecosistema de 
 
 ---
 
+La solución se diseñó siguiendo un flujo de procesamiento de tres capas:
+
+1. **Base de Conocimiento (PyPDF):** Al arrancar, la aplicación lee de forma automatizada el archivo `informacion_cafeteria.pdf`, extrayendo todo su contenido textual a memoria.
+2. **Interfaz de Usuario (Streamlit):** Una aplicación web ligera que gestiona el estado de la sesión (`st.session_state`) para mantener el historial de chat de forma interactiva.
+3. **Cerebro de IA (Cohere LLM):** El texto extraído se inyecta como contexto exclusivo (Preamble) en el modelo `command-r-08-2024` de Cohere. Esto asegura que el agente responda únicamente con datos oficiales y decline responder amablemente si la información no está en el documento.
+
+---
+
 ## 📐 Arquitectura y Flujo de Datos
 
 El procesamiento de las consultas sigue un flujo controlado y estructurado desde que el usuario escribe un mensaje hasta que el modelo genera la respuesta:

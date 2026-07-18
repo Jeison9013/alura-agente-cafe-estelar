@@ -8,6 +8,8 @@ Original file is located at
 """
 import streamlit as st
 import cohere
+import os
+from pypdf import PdfReader
 
 # 1. Configurar la API Key de Cohere de forma segura mediante los Secrets de Streamlit
 try:
@@ -23,43 +25,7 @@ print("Tus modelos disponibles para usar son:")
 for modelo in co.models.list().models:
     if 'chat' in modelo.endpoints:
         print(f"- {modelo.name}")
-
-import os
-from pypdf import PdfReader
-import cohere
-
-# 1. Configura tu API Key de Cohere aquí
-
-co = cohere.Client(COHERE_API_KEY)
-
-# 2. Leer el PDF de la cafetería
-lector = PdfReader("informacion_cafeteria.pdf")
-contenido_pdf = ""
-for pagina in lector.pages:
-    contenido_pdf += pagina.extract_text() + "\n"
-
-# 3. Función del Agente usando el modelo verificado de tu lista
-def preguntar_al_agente(pregunta):
-    instrucciones = (
-        "Eres el asistente virtual de 'Café Estelar'. Tu deber es responder preguntas de los clientes "
-        "basándote únicamente en la información proporcionada a continuación.\n\n"
-        f"Información de la Cafetería:\n{contenido_pdf}\n\n"
-        "Si la respuesta no está en el texto, di amablemente que no cuentas con esa información."
-    )
-
-    # Usamos el modelo confirmado de tu lista
-    respuesta = co.chat(
-        model="command-r-08-2024",
-        message=pregunta,
-        preamble=instrucciones
-    )
-
-    print(f"Pregunta: {pregunta}")
-    print(f"Respuesta: {respuesta.text}\n")
-
-# --- ¡PROBEMOS TU AGENTE! ---
-preguntar_al_agente("¿Tienen internet y cuál es la contraseña?")
-
+        
 import os
 from pypdf import PdfReader
 import cohere
